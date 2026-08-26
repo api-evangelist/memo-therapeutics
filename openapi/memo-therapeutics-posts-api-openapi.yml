@@ -1,0 +1,362 @@
+openapi: 3.2.0
+info:
+  title: Memo Therapeutics Content Posts API
+  version: wp/v2
+  summary: Anonymously readable WordPress REST content API behind memo-therapeutics.com.
+  description: The read-only content surface Memo Therapeutics exposes at https://memo-therapeutics.com/wp-json. Memo Therapeutics AG ("MTx") is a late-stage biotech in Schlieren / Zurich, Switzerland, translating human immune responses into antibody medicines for viral infection and cancer; its lead asset potravitug is a first-in-class monoclonal antibody against BK polyomavirus in kidney transplant recipients, and Ipsen completed its acquisition of the company on 22 July 2026. The company runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress route index the site itself publishes; it is not a contract Memo Therapeutics authored or endorses.
+  contact:
+    name: Memo Therapeutics AG
+    url: https://memo-therapeutics.com/contact-us/
+    email: info@memo-therapeutics.com
+  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index published at https://memo-therapeutics.com/wp-json/ (390 routes across 14 namespaces), and restricted to the operations that were verified to answer anonymously with a 200 on 2026-08-25. Every parameter below appears verbatim in that route index's `args` for the endpoint it is attached to, and every collection count quoted in a description was read from the `X-WP-Total` response header on that date. Memo Therapeutics publishes no OpenAPI, no developer portal and no API reference; `humanURL` in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Write operations and the authenticated surface (/wp/v2/users, /wp/v2/settings, /wp/v2/menus, /wp/v2/themes, /wp/v2/plugins, /wp/v2/block-types, the aioseo/v1, elementor*/v1, wordfence/v1, wp-site-health/v1 and wp-abilities/v1 namespaces) all returned 401 to an anonymous client and are deliberately
+    excluded. Nothing here was obtained with credentials.
+servers:
+- url: https://memo-therapeutics.com/wp-json
+  description: Production content API
+tags:
+- name: posts
+  description: News archive — press releases, interviews, event listings and scientific presentations (36 published on 2026-08-25).
+paths:
+  /wp/v2/posts:
+    get:
+      tags:
+      - posts
+      operationId: listPosts
+      summary: List news posts
+      description: 'Lists published posts. On this deployment the collection is the Memo Therapeutics news archive — 36 items on 2026-08-25, running from the November 2023 CEO appointment through the 22 July 2026 completion of Ipsen''s acquisition. Paginated; the response carries X-WP-Total and X-WP-TotalPages and a Link: rel="next" header.'
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: page
+        in: query
+        description: Current page of the collection.
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: per_page
+        in: query
+        description: Maximum number of items to be returned in result set.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 100
+      - name: search
+        in: query
+        description: Limit results to those matching a string.
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Limit response to posts published after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_after
+        in: query
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: author
+        in: query
+        description: Limit result set to posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: author_exclude
+        in: query
+        description: Ensure result set excludes posts assigned to specific authors.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: before
+        in: query
+        description: Limit response to posts published before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: modified_before
+        in: query
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+        schema:
+          type: string
+          format: date-time
+      - name: exclude
+        in: query
+        description: Ensure result set excludes specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: include
+        in: query
+        description: Limit result set to specific IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+      - name: search_semantics
+        in: query
+        description: How to interpret the search input.
+        schema:
+          type: string
+          enum:
+          - exact
+      - name: offset
+        in: query
+        description: Offset the result set by a specific number of items.
+        schema:
+          type: integer
+      - name: order
+        in: query
+        description: Order sort attribute ascending or descending.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: orderby
+        in: query
+        description: Sort collection by post attribute.
+        schema:
+          type: string
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          default: date
+      - name: search_columns
+        in: query
+        description: Array of column names to be searched.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+          default: []
+      - name: slug
+        in: query
+        description: Limit result set to posts with one or more specific slugs.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: status
+        in: query
+        description: Limit result set to posts assigned one or more statuses.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - any
+          default: publish
+      - name: tax_relation
+        in: query
+        description: Limit result set based on relationship between multiple taxonomies.
+        schema:
+          type: string
+          enum:
+          - AND
+          - OR
+      - name: categories
+        in: query
+        description: Limit result set to items with specific terms assigned in the categories taxonomy.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: categories_exclude
+        in: query
+        description: Limit result set to items, except those with specific terms assigned in the categories taxonomy.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: tags
+        in: query
+        description: Limit result set to items with specific terms assigned in the tags taxonomy.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: tags_exclude
+        in: query
+        description: Limit result set to items, except those with specific terms assigned in the tags taxonomy.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sticky
+        in: query
+        description: Limit result set to items that are sticky.
+        schema:
+          type: boolean
+      - name: ignore_sticky
+        in: query
+        description: Whether to ignore sticky posts or not.
+        schema:
+          type: boolean
+          default: true
+      - name: format
+        in: query
+        description: Limit result set to items assigned one or more given formats.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard
+            - aside
+            - chat
+            - gallery
+            - link
+            - image
+            - quote
+            - status
+            - video
+            - audio
+      responses:
+        '200':
+          description: A page of posts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+        '404':
+          $ref: '#/components/responses/NoRoute'
+  /wp/v2/posts/{id}:
+    get:
+      tags:
+      - posts
+      operationId: getPost
+      summary: Get a news post
+      description: Returns one post by numeric id.
+      parameters:
+      - name: id
+        in: path
+        description: Unique identifier for the post.
+        required: true
+        schema:
+          type: integer
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: excerpt_length
+        in: query
+        description: Override the default excerpt length.
+        schema:
+          type: integer
+      - name: password
+        in: query
+        description: The password for the post if it is password protected.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested object.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+        '404':
+          $ref: '#/components/responses/NoRoute'
+components:
+  schemas:
+    RestError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on this deployment. It is NOT RFC 9457 application/problem+json — the media type is application/json.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug, e.g. rest_forbidden.
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code, repeated in the body.
+      required:
+      - code
+      - message
+    RenderedText:
+      type: object
+      properties:
+        rendered:
+          type: string
+      description: WordPress renders text fields into a { rendered } wrapper.
+  responses:
+    InvalidParameter:
+      description: Invalid parameter (code rest_invalid_param).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
+    NoRoute:
+      description: No route matched (code rest_no_route), or the object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
+    Forbidden:
+      description: Anonymous client is not permitted (code rest_forbidden / rest_cannot_view). Observed 401, not 403.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'

@@ -1,0 +1,52 @@
+generated: '2026-08-25'
+method: probed
+source: >-
+  Live probes of https://memo-therapeutics.com on 2026-08-25 and the site's own WordPress route
+  index at /wp-json/.
+status: none
+summary: >-
+  Memo Therapeutics ships no MCP server, hosted or local. This file records the probe and the two
+  MCP-adjacent surfaces that are registered on the deployment but closed, because both are the kind
+  of thing that could be mistaken for an agent surface on a later pass.
+deployment:
+  mode: none
+  auth: none
+  verified: probed
+probes:
+- url: https://memo-therapeutics.com/.well-known/mcp.json
+  status: 404
+- url: https://memo-therapeutics.com/wp-json/mcp
+  status: 404
+  body: '{"code":"rest_no_route","message":"No route was found matching the URL and request method."}'
+- url: https://memo-therapeutics.com/.well-known/agent-card.json
+  status: 404
+- url: https://memo-therapeutics.com/.well-known/oauth-protected-resource
+  status: 200
+  note: Returns the homepage HTML, not RFC 9728 metadata. Not a protected-resource declaration.
+registered_but_gated:
+- namespace: wp-abilities/v1
+  what: >-
+    The WordPress Abilities API — core's registry of named, schema'd capabilities, and the thing an
+    MCP adapter binds to when a WordPress site is exposed to agents.
+  routes:
+  - /wp-abilities/v1/abilities
+  - /wp-abilities/v1/abilities/{name}
+  - /wp-abilities/v1/abilities/{name}/run
+  - /wp-abilities/v1/categories
+  observed: >-
+    GET /wp-json/wp-abilities/v1 -> 200 (the namespace index is public), but
+    GET /wp-json/wp-abilities/v1/abilities -> 401 rest_forbidden. The ability list and every run
+    endpoint require authentication, so no tool schema can be read and none is recorded here.
+- namespace: aioseo/v1
+  route: /aioseo/v1/ai-agents/mcp-adapter/release
+  what: An All in One SEO plugin route named for an MCP adapter.
+  observed: 'GET -> 401 rest_forbidden.'
+  note: >-
+    Its presence reflects the plugin's feature set, not a decision by Memo Therapeutics to expose
+    an agent surface. It is administrative and unreachable without a site credential.
+candidate_tools: []
+candidate_note: >-
+  No candidate tool list is derived. Deriving MCP tools from the nine OpenAPI documents in this
+  repo would produce a plausible-looking manifest for a server that does not exist, on a surface
+  the company never intended as a product. NO MCPServer pointer is emitted in apis.yml: the
+  underlying thing is genuinely absent and the pointer would assert otherwise.

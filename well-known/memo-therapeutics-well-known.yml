@@ -1,0 +1,43 @@
+generated: '2026-08-25'
+method: probed
+source: https://memo-therapeutics.com/.well-known/
+hit_count: 0
+note: >-
+  No /.well-known document is served. Two paths answer HTTP 200 —
+  /.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource — but both
+  return the site homepage HTML byte-for-byte (134,226 bytes, identical to GET /), not a document.
+  They are a WordPress rewrite artifact, not a discovery surface. A control probe of an invented
+  path (/.well-known/zzz-api-evangelist-control-probe) correctly returned 404 with the 70,601-byte
+  WordPress 404 page, which is how the two 200s were established as false positives rather than a
+  blanket catch-all. Nothing was saved and NO WellKnown or SecurityTxt pointer is emitted in
+  apis.yml: this file records an absence, and an absence must not score as a presence.
+hosts:
+- host: https://memo-therapeutics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: HTML homepage, not a document — no file saved, does not count.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    note: HTML homepage, not a document — no file saved, does not count.
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/mcp.json
+    status: 404
+  - path: /.well-known/dnt-policy.txt
+    status: 404
+soft_404_control:
+  path: /.well-known/zzz-api-evangelist-control-probe
+  status: 404
+  bytes: 70601
+  homepage_bytes: 134226

@@ -1,0 +1,196 @@
+openapi: 3.2.0
+info:
+  title: Memo Therapeutics Discovery API
+  version: wp/v2
+  summary: Anonymously readable WordPress REST content API behind memo-therapeutics.com.
+  description: The read-only content surface Memo Therapeutics exposes at https://memo-therapeutics.com/wp-json. Memo Therapeutics AG ("MTx") is a late-stage biotech in Schlieren / Zurich, Switzerland, translating human immune responses into antibody medicines for viral infection and cancer; its lead asset potravitug is a first-in-class monoclonal antibody against BK polyomavirus in kidney transplant recipients, and Ipsen completed its acquisition of the company on 22 July 2026. The company runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress route index the site itself publishes; it is not a contract Memo Therapeutics authored or endorses.
+  contact:
+    name: Memo Therapeutics AG
+    url: https://memo-therapeutics.com/contact-us/
+    email: info@memo-therapeutics.com
+  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index published at https://memo-therapeutics.com/wp-json/ (390 routes across 14 namespaces), and restricted to the operations that were verified to answer anonymously with a 200 on 2026-08-25. Every parameter below appears verbatim in that route index's `args` for the endpoint it is attached to, and every collection count quoted in a description was read from the `X-WP-Total` response header on that date. Memo Therapeutics publishes no OpenAPI, no developer portal and no API reference; `humanURL` in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Write operations and the authenticated surface (/wp/v2/users, /wp/v2/settings, /wp/v2/menus, /wp/v2/themes, /wp/v2/plugins, /wp/v2/block-types, the aioseo/v1, elementor*/v1, wordfence/v1, wp-site-health/v1 and wp-abilities/v1 namespaces) all returned 401 to an anonymous client and are deliberately
+    excluded. Nothing here was obtained with credentials.
+servers:
+- url: https://memo-therapeutics.com/wp-json
+  description: Production content API
+tags:
+- name: discovery
+  description: Route, type, taxonomy and status discovery documents — the machine-readable index this profile was derived from.
+paths:
+  /:
+    get:
+      tags:
+      - discovery
+      operationId: getRouteIndex
+      summary: Get the REST route index
+      description: 'Returns the site''s WordPress REST discovery document: name, description, url, the registered namespaces, and every route with its methods and args. This deployment advertised 390 routes across 14 namespaces on 2026-08-25 and links itself from the site HTML via Link: <https://memo-therapeutics.com/wp-json/>; rel="https://api.w.org/".'
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          default: view
+      responses:
+        '200':
+          description: The route index.
+          content:
+            application/json:
+              schema: &id001
+                type: object
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+  /wp/v2:
+    get:
+      tags:
+      - discovery
+      operationId: getNamespaceIndex
+      summary: Get the wp/v2 namespace index
+      description: Returns the route index scoped to the wp/v2 namespace.
+      parameters:
+      - name: namespace
+        in: query
+        schema:
+          type: string
+          default: wp/v2
+      - name: context
+        in: query
+        schema:
+          type: string
+          default: view
+      responses:
+        '200':
+          description: The namespace index.
+          content:
+            application/json:
+              schema: *id001
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+  /wp/v2/types:
+    get:
+      tags:
+      - discovery
+      operationId: listTypes
+      summary: List registered post types
+      description: Returns the registered post types and their REST base paths.
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Registered post types.
+          content:
+            application/json:
+              schema: *id001
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+  /wp/v2/taxonomies:
+    get:
+      tags:
+      - discovery
+      operationId: listTaxonomies
+      summary: List registered taxonomies
+      description: Returns the registered taxonomies (category and post_tag on this deployment).
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: type
+        in: query
+        description: Limit results to taxonomies associated with a specific post type.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registered taxonomies.
+          content:
+            application/json:
+              schema: *id001
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+  /wp/v2/statuses:
+    get:
+      tags:
+      - discovery
+      operationId: listStatuses
+      summary: List post statuses
+      description: Returns the publicly queryable post statuses.
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Post statuses.
+          content:
+            application/json:
+              schema: *id001
+        '400':
+          $ref: '#/components/responses/InvalidParameter'
+components:
+  schemas:
+    RestError:
+      type: object
+      description: The WordPress REST error envelope, observed verbatim on this deployment. It is NOT RFC 9457 application/problem+json — the media type is application/json.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug, e.g. rest_forbidden.
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code, repeated in the body.
+      required:
+      - code
+      - message
+    RenderedText:
+      type: object
+      properties:
+        rendered:
+          type: string
+      description: WordPress renders text fields into a { rendered } wrapper.
+  responses:
+    InvalidParameter:
+      description: Invalid parameter (code rest_invalid_param).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
+    NoRoute:
+      description: No route matched (code rest_no_route), or the object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
+    Forbidden:
+      description: Anonymous client is not permitted (code rest_forbidden / rest_cannot_view). Observed 401, not 403.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'

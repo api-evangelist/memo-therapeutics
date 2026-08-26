@@ -1,0 +1,91 @@
+generated: '2026-08-25'
+method: probed
+source: >-
+  HTTP responses observed against https://memo-therapeutics.com/wp-json on 2026-08-25. Every code
+  below was returned by this deployment during the probe; none were copied from upstream
+  documentation.
+format: wordpress-rest-error
+rfc9457: false
+media_type: application/json
+envelope:
+  code: string — machine-readable slug
+  message: string — human-readable message
+  data:
+    status: integer — the HTTP status, repeated in the body
+note: >-
+  This is not RFC 9457 application/problem+json. There is no type URI, no instance, and no title
+  field; agents keying off problem+json will not match. Memo Therapeutics publishes no error
+  reference of its own.
+problem_types:
+- code: rest_no_route
+  status: 404
+  title: No route matched
+  observed_on: GET /wp-json/wp/v2/wp_template
+  message: No route was found matching the URL and request method.
+  remediation: >-
+    Read the live route index at GET /wp-json/ — this deployment registers 390 routes across 14
+    namespaces and the set differs from a stock WordPress install.
+- code: rest_forbidden
+  status: 401
+  title: Not permitted
+  observed_on: GET /wp-json/wp/v2/settings, GET /wp-json/aioseo/v1/ping
+  message: Sorry, you are not allowed to do that.
+  remediation: Authenticated, site-internal surface. No credential is issued to third parties.
+- code: rest_user_cannot_view
+  status: 401
+  title: User listing not permitted
+  observed_on: GET /wp-json/wp/v2/users
+  message: Sorry, you are not allowed to list users.
+  remediation: >-
+    Author identity is not exposed anonymously on this deployment; resolve authors from the
+    _embedded block of a post instead, where available.
+- code: rest_cannot_view
+  status: 401
+  title: Collection not viewable
+  observed_on: GET /wp-json/wp/v2/menus
+  message: Sorry, you are not allowed to view menus.
+- code: rest_cannot_view_themes
+  status: 401
+  title: Themes not viewable
+  observed_on: GET /wp-json/wp/v2/themes
+- code: rest_cannot_view_plugins
+  status: 401
+  title: Plugins not viewable
+  observed_on: GET /wp-json/wp/v2/plugins
+- code: rest_block_type_cannot_view
+  status: 401
+  title: Block types not viewable
+  observed_on: GET /wp-json/wp/v2/block-types
+- code: rest_cannot_read
+  status: 401
+  title: Resource not readable
+  observed_on: GET /wp-json/wp/v2/font-collections
+- code: rest_invalid_param
+  status: 400
+  title: Invalid parameter
+  observed_on: 'GET /wp-json/wp/v2/posts?per_page=101'
+  message: 'Invalid parameter(s): per_page'
+  data_detail: 'params.per_page: "per_page must be between 1 (inclusive) and 100 (inclusive)"'
+  note: >-
+    This is the one error shape on the surface that carries structured detail — data.params maps the
+    offending parameter name to its constraint message.
+  remediation: >-
+    Check the parameter against the enum/minimum/maximum in the derived OpenAPI — per_page is
+    capped at 100, context is limited to view|embed|edit.
+- code: rest_post_invalid_page_number
+  status: 400
+  title: Page number beyond the collection
+  observed_on: 'GET /wp-json/wp/v2/posts?page=9999'
+  message: The page number requested is larger than the number of pages available.
+  remediation: >-
+    Read X-WP-TotalPages from the first response and stop there, or follow the Link rel="next"
+    header rather than incrementing page blindly.
+
+edge_errors:
+- status: 403
+  title: Blocked at the edge
+  observed_on: GET /wp-json/batch/v1
+  body: HTML Apache 403 page, not the JSON envelope
+  note: >-
+    The WAF answers before WordPress does on this path, so a client parsing JSON unconditionally
+    will fail here. This is the one place on the surface where the error contract is not honoured.

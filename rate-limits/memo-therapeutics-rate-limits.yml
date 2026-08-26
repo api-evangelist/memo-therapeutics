@@ -1,0 +1,48 @@
+generated: '2026-08-25'
+method: probed
+source: >-
+  Response headers observed on anonymous calls to https://memo-therapeutics.com/wp-json/wp/v2/posts
+  and neighbouring collections on 2026-08-25.
+limit_count: 0
+note: >-
+  No rate limit is documented and none is signalled at runtime. Not one X-RateLimit-*, RateLimit-*
+  or Retry-After header appeared on any observed response, and Memo Therapeutics publishes no
+  developer documentation in which a limit could be stated. An honest zero: an agent calling this
+  API gets no runtime budget signal at all and must self-throttle.
+limits: []
+response_headers_observed:
+- date
+- content-type
+- server
+- x-powered-by
+- x-robots-tag
+- x-content-type-options
+- access-control-expose-headers
+- access-control-allow-headers
+- x-wp-total
+- x-wp-totalpages
+- link
+- allow
+- vary
+- x-provided-by
+- cache-control
+- expires
+- x-origin-cache-status
+- x-cdn-cache-status
+- x-via
+exhaustion_status: unknown
+enforcement:
+  documented: false
+  observed: >-
+    A Wordfence plugin (wordfence/v1 namespace) and a StackCDN edge sit in front of the origin, and
+    the edge returned an HTML 403 on /wp-json/batch/v1, so abusive volume is likely to be answered
+    by an edge block rather than a 429 with a Retry-After. That was not provoked and is not
+    asserted — it is recorded as the shape a client should expect to defend against.
+pagination_ceiling:
+  param: per_page
+  maximum: 100
+  enforced: true
+  evidence: 'GET /wp-json/wp/v2/posts?per_page=101 -> 400 rest_invalid_param'
+  note: >-
+    The only hard, published, enforced ceiling on this API is the page size. It is not a rate limit
+    but it is the sole quantitative constraint a client can read.

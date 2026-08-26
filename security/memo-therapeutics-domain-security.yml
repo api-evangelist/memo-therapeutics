@@ -1,0 +1,28 @@
+generated: '2026-08-25'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+note: >-
+  Scoped to the host Memo Therapeutics controls. The probe also walked
+  developer.wordpress.org and wordpress.org because the apis[].humanURL points at the
+  upstream WordPress REST handbook that defines the wp/v2 contract; those results
+  describe the WordPress Foundation's posture, not Memo Therapeutics', and have been
+  removed so they are not read as this company's.
+findings:
+  - memo-therapeutics.com serves TLS 1.3 with a certificate valid to 2027-02-27 but sends
+    no Strict-Transport-Security header.
+  - No DNSSEC and no CAA record on memo-therapeutics.com.
+  - SPF and DMARC are both published; the DMARC policy is p=reject. Mail is on Microsoft 365
+    (MX memotherapeutics-com01b.mail.protection.outlook.com).
+hosts:
+- host: memo-therapeutics.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb 27 23:59:59 2027 GMT
+  hsts: false
+domains:
+- domain: memo-therapeutics.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

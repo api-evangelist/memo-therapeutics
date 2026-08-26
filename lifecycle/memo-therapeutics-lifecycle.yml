@@ -1,0 +1,64 @@
+generated: '2026-08-25'
+method: probed
+source: >-
+  https://memo-therapeutics.com (site walk on 2026-08-25) and the live route index at
+  https://memo-therapeutics.com/wp-json/
+summary: >-
+  Memo Therapeutics publishes no API lifecycle policy of any kind. There is no changelog, no status
+  page, no deprecation or sunset policy, no SLA and no support channel for this surface, because the
+  surface is a side effect of the company's WordPress marketing site rather than a product. What
+  follows records those absences with the probe that established each one.
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  discovery: GET https://memo-therapeutics.com/wp-json/
+  policy_published: false
+  note: >-
+    Version changes arrive whenever WordPress core is upgraded on this deployment. No advance
+    notice, no version negotiation, no parallel-version window is offered or promised.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No RFC 8594 Sunset or Deprecation header appeared on any observed response, and no page on
+    memo-therapeutics.com states a deprecation policy. No Deprecation pointer is emitted in
+    apis.yml.
+status_page:
+  published: false
+  probed:
+  - url: https://status.memo-therapeutics.com/
+    status: 'no TLS certificate for the host (wildcard DNS only)'
+  note: >-
+    memo-therapeutics.com resolves every subdomain to 185.151.30.220 by wildcard, and status.,
+    api., docs., developer., app. and portal. all fail TLS with "no alternative certificate subject
+    name matches target host name". There is no status page. No StatusPage pointer is emitted in
+    apis.yml.
+sla:
+  published: false
+support:
+  developer_channel: false
+  general_contact: https://memo-therapeutics.com/contact-us/
+  emails:
+  - corporate.communications@ipsen.com
+  - info@memo-therapeutics.com
+  note: >-
+    The contact route is corporate communications, not developer support. Since the Ipsen
+    acquisition closed on 2026-07-22 the site header directs enquiries to
+    corporate.communications@ipsen.com.
+corporate_lifecycle:
+  event: acquisition
+  acquirer: Ipsen (Euronext IPN, ADR IPSEY)
+  completed: '2026-07-22'
+  evidence: https://memo-therapeutics.com/2026/07/22/ipsen-completes-acquisition-of-memo-therapeutics-ag-adding-first-in-class-asset-to-ipsens-rare-disease-pipeline/
+  observable_effects:
+  - The site now brands itself "Memo Therapeutics AG, an Ipsen company" and serves a
+    memo-therapeutics-ipsen lock-up logo added to the media library.
+  - https://memo-therapeutics.com/careers/ 302s to https://www.ipsen.com/careers/ — the careers
+    surface has already been folded into the parent.
+  - Contact enquiries are routed to corporate.communications@ipsen.com.
+  note: >-
+    The content API is the surface most likely to disappear first if the site is consolidated into
+    ipsen.com. Anything built on it should treat it as unversioned and unpromised.

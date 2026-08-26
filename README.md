@@ -64,5 +64,17 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Memo Therapeutics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Memo Therapeutics AG ("MTx"), an Ipsen company, is a late-stage biotechnology company in Schlieren /
+Zurich, Switzerland, developing best-in-class therapeutic antibodies for viral infections and cancer on
+its DROPZYLLA single-cell antibody-discovery platform. Its lead program, potravitug, is a first-in-class
+monoclonal antibody against BK polyomavirus reactivation in kidney transplant recipients. Ipsen completed
+its acquisition of the company on 22 July 2026.
+
+Memo Therapeutics runs no developer program and publishes no product API, developer portal, SDK or API
+documentation. The only machine-readable surface reachable without credentials is the WordPress REST
+content API behind memo-therapeutics.com — profiled here as nine derived OpenAPI documents — together
+with an llms.txt the site's SEO plugin publishes, captured verbatim.
+
+- https://memo-therapeutics.com/
+- https://www.linkedin.com/company/memo-therapeutics-ag/
+- https://www.ipsen.com/

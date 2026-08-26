@@ -1,0 +1,64 @@
+generated: '2026-08-25'
+method: probed
+source: >-
+  Live anonymous probes of https://memo-therapeutics.com/wp-json on 2026-08-25, plus the route
+  index the site publishes at /wp-json/. Memo Therapeutics publishes no authentication
+  documentation of its own; the upstream contract is defined at
+  https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+docs: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+summary: >-
+  The published read surface requires no credentials at all. Every write operation and every
+  administrative namespace is closed to anonymous clients and answers 401 with the WordPress REST
+  error envelope. There is no API key programme, no OAuth server, no token endpoint and no
+  developer sign-up — Memo Therapeutics does not issue credentials for this surface to anyone
+  outside the company.
+schemes:
+- id: none
+  type: none
+  description: >-
+    Anonymous GET. Confirmed on /wp/v2/posts, /wp/v2/pages, /wp/v2/media, /wp/v2/comments,
+    /wp/v2/categories, /wp/v2/tags, /wp/v2/search, /wp/v2/navigation, /wp/v2/types,
+    /wp/v2/taxonomies, /wp/v2/statuses and /oembed/1.0/embed, all HTTP 200 on 2026-08-25.
+  applies_to: read
+- id: cookie-nonce
+  type: cookie
+  description: >-
+    WordPress core's first-party scheme — a logged-in session cookie plus an X-WP-Nonce header.
+    Advertised by the deployment: the response to an anonymous call carries
+    "access-control-allow-headers: Authorization, X-WP-Nonce, ...". Not obtainable by an outside
+    integrator; it exists for the site's own editor UI.
+  applies_to: write
+  status: gated
+- id: authorization-header
+  type: http
+  description: >-
+    An Authorization header is accepted by the origin (wp-site-health/v1/tests/authorization-header
+    is registered), which is how WordPress Application Passwords would be presented. No credential
+    is issued to third parties, so this is a capability of the software, not an access model
+    Memo Therapeutics operates.
+  applies_to: write
+  status: gated
+gated_surface:
+  observed_status: 401
+  error_codes:
+  - rest_forbidden
+  - rest_user_cannot_view
+  - rest_cannot_view
+  - rest_cannot_view_themes
+  - rest_cannot_view_plugins
+  - rest_block_type_cannot_view
+  - rest_cannot_read
+  paths:
+  - /wp/v2/users
+  - /wp/v2/settings
+  - /wp/v2/menus
+  - /wp/v2/themes
+  - /wp/v2/plugins
+  - /wp/v2/block-types
+  - /wp/v2/font-collections
+  - /wp-abilities/v1/abilities
+  - /aioseo/v1/ping
+  - /aioseo/v1/ai-agents/mcp-adapter/release
+  note: >-
+    /wp-json/batch/v1 returned 403 from the edge (an HTML Apache error page), not the JSON 401 the
+    application returns — the WAF answers before WordPress does on that path.

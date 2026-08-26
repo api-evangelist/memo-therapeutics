@@ -1,0 +1,149 @@
+generated: '2026-08-25'
+method: derived
+source: >-
+  openapi/memo-therapeutics-*.yml plus live anonymous responses from
+  https://memo-therapeutics.com/wp-json on 2026-08-25 (the _links and _embedded blocks each object
+  returns are the relationship graph, read directly rather than inferred).
+summary: >-
+  The entity graph of the WordPress content core behind memo-therapeutics.com. Object counts are
+  the X-WP-Total values observed on 2026-08-25.
+entities:
+- name: post
+  path: /wp/v2/posts
+  count: 36
+  id: integer
+  description: >-
+    A news item — press release, Q&A interview, event listing or publication announcement. The
+    archive runs from the November 2023 CEO appointment to the completion of Ipsen's acquisition on
+    2026-07-22.
+  key_fields:
+  - id
+  - date
+  - date_gmt
+  - modified
+  - slug
+  - status
+  - link
+  - title.rendered
+  - content.rendered
+  - excerpt.rendered
+  - author
+  - featured_media
+  - categories
+  - tags
+  relationships:
+  - type: belongs_to
+    target: user
+    via: author
+    note: The target collection is 401 to anonymous clients; resolve via _embedded instead.
+  - type: has_one
+    target: media
+    via: featured_media
+  - type: has_many
+    target: category
+    via: categories
+  - type: has_many
+    target: tag
+    via: tags
+  - type: has_many
+    target: comment
+    via: 'comments?post={id}'
+- name: page
+  path: /wp/v2/pages
+  count: 10
+  description: Corporate pages, including the Expanded Access Policy, privacy, cookie and terms documents.
+  key_fields:
+  - id
+  - slug
+  - link
+  - title.rendered
+  - content.rendered
+  - parent
+  - menu_order
+  - modified
+  relationships:
+  - type: belongs_to
+    target: page
+    via: parent
+  - type: belongs_to
+    target: user
+    via: author
+  - type: has_one
+    target: media
+    via: featured_media
+- name: media
+  path: /wp/v2/media
+  count: 163
+  description: >-
+    Attachments — corporate imagery, the post-acquisition Memo Therapeutics / Ipsen lock-up logo,
+    partner and investor logos, leadership portraits.
+  key_fields:
+  - id
+  - source_url
+  - mime_type
+  - media_type
+  - alt_text
+  - media_details.sizes
+  - post
+  relationships:
+  - type: belongs_to
+    target: post
+    via: post
+- name: category
+  path: /wp/v2/categories
+  count: 8
+  description: >-
+    The site's own editorial taxonomy — blog-posts (36), past-events (24), archived (2),
+    industry-forums (2), nephrology (2), oncology (2), pharmaceutical-companies (2),
+    research-universities (0). It doubles as the partner taxonomy: the Ono Pharmaceutical
+    collaboration, the Zurich and Bern university-hospital collaborations and the TTC / TAVI
+    industry forums each have a term.
+  key_fields:
+  - id
+  - name
+  - slug
+  - count
+  - parent
+  - link
+  relationships:
+  - type: belongs_to
+    target: category
+    via: parent
+  - type: has_many
+    target: post
+    via: 'posts?categories={id}'
+- name: tag
+  path: /wp/v2/tags
+  count: 0
+  description: Registered post_tag taxonomy, holding zero terms on 2026-08-25.
+  relationships:
+  - type: has_many
+    target: post
+    via: 'posts?tags={id}'
+- name: comment
+  path: /wp/v2/comments
+  count: 0
+  description: Registered and anonymously readable, but empty.
+  relationships:
+  - type: belongs_to
+    target: post
+    via: post
+  - type: belongs_to
+    target: comment
+    via: parent
+- name: navigation
+  path: /wp/v2/navigation
+  count: 1
+  description: Block-theme navigation menu exposed as a post type.
+- name: user
+  path: /wp/v2/users
+  count: null
+  access: gated
+  description: >-
+    Registered but not readable — GET /wp/v2/users returns 401 rest_user_cannot_view. Author
+    identity is only reachable through the _embedded.author block of a post.
+identifiers:
+  scheme: sequential integers, unique per object type
+  note: >-
+    No prefixed or opaque identifiers. Ids are database-sequential and therefore enumerable and
+    not stable across a site migration — an integrator should key on slug or link, not id.

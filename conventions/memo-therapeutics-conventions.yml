@@ -1,0 +1,104 @@
+generated: '2026-08-25'
+method: derived
+source: >-
+  openapi/memo-therapeutics-*.yml (derived from the live route index at
+  https://memo-therapeutics.com/wp-json/) plus response headers observed on anonymous calls to
+  https://memo-therapeutics.com/wp-json/wp/v2/posts on 2026-08-25.
+summary: >-
+  Cross-cutting semantics of the WordPress REST content API behind memo-therapeutics.com. Memo
+  Therapeutics documents none of this itself; every rule below was either read off a live response
+  or copied from the route index the site publishes.
+auth_style:
+  read: none
+  write: cookie + X-WP-Nonce (site-internal only)
+  reference: authentication/memo-therapeutics-authentication.yml
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+    minimum: 1
+  - name: per_page
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    note: Offsets the result set by a number of items; combinable with page.
+  response_headers:
+  - name: X-WP-Total
+    description: Total items in the collection. Observed value 36 on /wp/v2/posts.
+  - name: X-WP-TotalPages
+    description: Total pages at the requested per_page.
+  - name: Link
+    description: 'RFC 8288 link header carrying rel="next" / rel="prev".'
+  cors_exposed: 'access-control-expose-headers: X-WP-Total, X-WP-TotalPages, Link'
+sparse_fields:
+  supported: true
+  param: _fields
+  description: >-
+    Comma-separated allow-list of response fields, e.g. /wp/v2/pages?_fields=id,link,title.
+    Verified working on this deployment on 2026-08-25.
+embedding:
+  supported: true
+  param: _embed
+  description: Inlines linked resources (author, featured media, terms) under _embedded.
+context_negotiation:
+  param: context
+  values:
+  - view
+  - embed
+  - edit
+  default: view
+  note: edit requires authentication and is unavailable anonymously here.
+filtering:
+  search: 'search, search_columns (post_title|post_content|post_excerpt), search_semantics'
+  dates: after, before, modified_after, modified_before (ISO 8601)
+  ids: include, exclude, slug
+  ordering: order (asc|desc), orderby
+  taxonomy: categories, categories_exclude, tags, tags_exclude, tax_relation (AND|OR)
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape:
+    code: machine-readable slug
+    message: human-readable string
+    data.status: HTTP status repeated in the body
+  reference: errors/memo-therapeutics-problem-types.yml
+versioning:
+  style: namespace-in-path
+  current: wp/v2
+  discovery: GET /wp-json/ returns every registered namespace and route
+  note: >-
+    Version is carried by the namespace segment, not a header or query parameter. No version
+    negotiation, no sunset signalling.
+rate_limit_signaling:
+  headers_observed: none
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header appeared on any observed response. See
+    rate-limits/memo-therapeutics-rate-limits.yml.
+request_id_tracing:
+  supported: false
+  note: >-
+    No request-id or correlation header is returned. The only per-request observability is the CDN
+    trio x-provided-by / x-origin-cache-status / x-cdn-cache-status (StackCDN).
+caching:
+  headers: 'cache-control, expires, x-origin-cache-status, x-cdn-cache-status'
+  note: API responses are served cache-control max-age=0 with x-robots-tag noindex.
+idempotency:
+  supported: na
+  reason: >-
+    There is no anonymous write surface. Every POST/PUT/PATCH/DELETE route in the index answers 401
+    to an outside client, so there is no request an integrator could double-fire.
+dry_run_mode:
+  supported: na
+  reason: Read-only surface — nothing to rehearse.
+reversibility:
+  applicable: false
+  grade: na
+  reason: >-
+    The published surface is read-only for every client that can reach it. No cancel, refund, void,
+    reverse, undo, rollback or restore operation is exposed, because no state-changing operation is
+    exposed. WordPress core does implement trash/restore semantics on posts and pages
+    (DELETE ?force=false then POST status=publish), but both sides of that pair are behind the same
+    401 wall, so an agent acting on this API cannot take an action it would need to take back.
+  write_surfaces: []

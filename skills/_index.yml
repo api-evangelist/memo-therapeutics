@@ -1,0 +1,45 @@
+generated: '2026-08-25'
+method: generated
+source: >-
+  Authored by the API Evangelist enrichment pipeline against openapi/memo-therapeutics-*.yml. Every
+  operationId referenced in these skills was grepped out of those documents, and every constraint,
+  header, status code and object count quoted was observed on a live anonymous call to
+  https://memo-therapeutics.com/wp-json on 2026-08-25. Memo Therapeutics publishes no skills,
+  AGENTS.md or agent documentation of its own.
+skills:
+- name: memo-therapeutics-track-news
+  file: memo-therapeutics-track-news.md
+  api: memo-therapeutics:memo-therapeutics-posts-api
+  description: >-
+    Incrementally track press releases, interviews and event listings from the company's own content
+    API, with correct pagination, modified_after windowing and error handling.
+  operations:
+  - listPosts
+  - getPost
+  - listCategories
+- name: memo-therapeutics-corporate-documents
+  file: memo-therapeutics-corporate-documents.md
+  api: memo-therapeutics:memo-therapeutics-pages-api
+  description: >-
+    Retrieve and watch for change the Expanded Access Policy, privacy policy, cookie policy and
+    terms as structured JSON, addressed by slug rather than by unstable id.
+  operations:
+  - listPages
+  - getPage
+- name: memo-therapeutics-content-discovery
+  file: memo-therapeutics-content-discovery.md
+  api: memo-therapeutics:memo-therapeutics-discovery-api
+  description: >-
+    Read the live route index, separate the anonymously readable surface from the 401 surface,
+    search across every published object, and resolve a URL to an oEmbed document.
+  operations:
+  - getRouteIndex
+  - getNamespaceIndex
+  - listTypes
+  - listTaxonomies
+  - listStatuses
+  - search
+  - getOembed
+note: >-
+  All three skills are read-only. This API exposes no write operation to any client that can reach
+  it, so no skill here mutates state, needs an idempotency key, or has an action to reverse.

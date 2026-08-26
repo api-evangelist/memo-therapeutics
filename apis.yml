@@ -1,23 +1,317 @@
 aid: memo-therapeutics
 name: Memo Therapeutics
-description: 'Memo Therapeutics is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Memo Therapeutics AG ("MTx"), an Ipsen company, is a late-stage biotechnology company headquartered at
+  Wagistrasse 27 in Schlieren / Zurich, Switzerland, with a US office as Memo Therapeutics US, Inc. in
+  Wilson, North Carolina. It develops best-in-class therapeutic antibodies to transform the lives of
+  patients with viral infections and cancer, built on DROPZYLLA, a microfluidic single-cell platform that
+  makes a recombinant in vitro copy of an individual donor's B-cell antibody repertoire, banks it as a
+  library, and screens it functionally at high throughput. Its lead program, potravitug, is a first-in-class
+  monoclonal antibody against BK polyomavirus (BKPyV) reactivation in kidney transplant recipients; the
+  Phase II SAFE KIDNEY II trial reported biopsy-proven resolution of BKPyV-associated nephropathy with
+  sustained viral-load reduction to week 38, and the asset holds EU orphan designation. In February 2026 the
+  company entered a collaboration and option agreement with CSL for its recombinant polyclonal IgG
+  technology carrying milestones of up to CHF 265 million, and it has run an oncology antibody-discovery
+  collaboration with Ono Pharmaceutical since 2022 alongside nephrology collaborations with the University
+  Hospital of Zurich and the University Hospital of Bern. Ipsen completed its acquisition of Memo
+  Therapeutics AG on 22 July 2026, adding potravitug to Ipsen's rare-disease pipeline. Memo Therapeutics
+  runs no developer program and publishes no product API, developer portal, SDK or API documentation. The
+  only machine-readable surface reachable without credentials is the WordPress REST content API behind
+  memo-therapeutics.com, catalogued here, together with an llms.txt the site's SEO plugin publishes.
+image: https://memo-therapeutics.com/wp-content/uploads/2024/07/memo-therapeutics-ipsen-logo.webp
 url: https://raw.githubusercontent.com/api-evangelist/memo-therapeutics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+x-tier: profiled
+x-tier-reason: enriched
+specificationVersion: '0.23'
 created: '2026-08-25'
 modified: '2026-08-25'
 tags:
 - Company
-apis: []
+- Biotechnology
+- Pharmaceuticals
+- Antibody Therapeutics
+- Rare Disease
+- Nephrology
+- Transplantation
+- Virology
+- Oncology
+- Clinical Trials
+- Life Sciences
+- Switzerland
+- content-api
+tags_raw:
+- Company
+- biotechnology
+- pharmaceuticals
+- antibody-therapeutics
+- rare-disease
+- nephrology
+- transplantation
+- virology
+- oncology
+- clinical-trials
+- life-sciences
+- switzerland
+- content-api
+apis:
+- aid: memo-therapeutics:memo-therapeutics-posts-api
+  name: Memo Therapeutics Posts API
+  description: >-
+    News archive — press releases, Q&A interviews, event listings and scientific presentations
+    (36 published on 2026-08-25).
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Posts
+  tags_raw:
+  - posts
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-posts-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+  - type: RateLimits
+    url: rate-limits/memo-therapeutics-rate-limits.yml
+- aid: memo-therapeutics:memo-therapeutics-pages-api
+  name: Memo Therapeutics Pages API
+  description: >-
+    Corporate pages — About us, BKV, Contact us, Latest News, Further Information, Expanded Access
+    Policy, and the privacy, cookie and terms documents (10 published on 2026-08-25).
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Pages
+  tags_raw:
+  - pages
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-pages-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-media-api
+  name: Memo Therapeutics Media API
+  description: >-
+    Media library — corporate imagery, partner and investor logos and leadership portraits
+    (163 attachments on 2026-08-25).
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Media
+  tags_raw:
+  - media
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-media-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-taxonomy-api
+  name: Memo Therapeutics Taxonomy API
+  description: >-
+    Categories and tags. Eight categories are registered and populated; the post_tag taxonomy is
+    registered but empty.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Taxonomy
+  tags_raw:
+  - taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-taxonomy-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-comments-api
+  name: Memo Therapeutics Comments API
+  description: >-
+    Comment collection. Registered and anonymously reachable, but empty — no post on this deployment
+    carries comments.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Comments
+  tags_raw:
+  - comments
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-comments-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-search-api
+  name: Memo Therapeutics Search API
+  description: Cross-content search across published objects (154 searchable objects on 2026-08-25).
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Search
+  tags_raw:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-search-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-discovery-api
+  name: Memo Therapeutics Discovery API
+  description: >-
+    Route, namespace, type, taxonomy and status discovery documents — the machine-readable index this
+    profile was derived from.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Discovery
+  tags_raw:
+  - discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-discovery-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-oembed-api
+  name: Memo Therapeutics oEmbed API
+  description: oEmbed 1.0 provider endpoint for memo-therapeutics.com URLs.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - oEmbed
+  tags_raw:
+  - oembed
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-oembed-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: Conformance
+    url: conformance/memo-therapeutics-conformance.yml
+- aid: memo-therapeutics:memo-therapeutics-navigation-api
+  name: Memo Therapeutics Navigation API
+  description: Block-theme navigation menus exposed as a post type (1 published on 2026-08-25).
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - Navigation
+  tags_raw:
+  - navigation
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-navigation-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: DataModel
+    url: data-model/memo-therapeutics-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/memo-therapeutics-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://memo-therapeutics.com/
+- type: About
+  url: https://memo-therapeutics.com/about-us/
+- type: News
+  url: https://memo-therapeutics.com/latest-news/
+- type: BlogRSS
+  url: https://memo-therapeutics.com/feed/
+- type: Contact
+  url: https://memo-therapeutics.com/contact-us/
+- type: PrivacyPolicy
+  url: https://memo-therapeutics.com/privacy-policy/
+- type: TermsOfService
+  url: https://memo-therapeutics.com/terms-and-conditions/
+- type: CookiePolicy
+  url: https://memo-therapeutics.com/cookie-policy/
+- type: PatientResources
+  url: https://memo-therapeutics.com/expanded-access-policy/
+- type: Disclaimer
+  url: https://memo-therapeutics.com/further-information/
+- type: Science
+  url: https://memo-therapeutics.com/bkv/
+- type: Careers
+  url: https://www.ipsen.com/careers/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/memo-therapeutics-ag/
+- type: ParentCompany
+  url: https://www.ipsen.com/
+- type: Sitemap
+  url: https://memo-therapeutics.com/sitemap.xml
+- type: Authentication
+  url: authentication/memo-therapeutics-authentication.yml
+- type: Conventions
+  url: conventions/memo-therapeutics-conventions.yml
+- type: Conformance
+  url: conformance/memo-therapeutics-conformance.yml
+- type: ErrorCatalog
+  url: errors/memo-therapeutics-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/memo-therapeutics-lifecycle.yml
+- type: DataModel
+  url: data-model/memo-therapeutics-data-model.yml
+- type: RateLimits
+  url: rate-limits/memo-therapeutics-rate-limits.yml
+- type: Plans
+  url: plans/memo-therapeutics-plans-pricing.yml
+- type: Overlay
+  url: overlays/memo-therapeutics-content-overlay.yaml
+- type: LLMsTxt
+  url: llms/memo-therapeutics-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-25'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
