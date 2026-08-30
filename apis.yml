@@ -41,17 +41,17 @@ created: '2026-08-25'
 modified: '2026-08-25'
 tags:
 - Company
-- Biotechnology
-- Pharmaceuticals
-- Antibody Therapeutics
-- Rare Disease
-- Nephrology
-- Transplantation
-- Virology
-- Oncology
-- Clinical Trials
-- Life Sciences
-- Switzerland
+- biotechnology
+- pharmaceuticals
+- antibody-therapeutics
+- rare-disease
+- nephrology
+- transplantation
+- virology
+- oncology
+- clinical-trials
+- life-sciences
+- switzerland
 - content-api
 tags_raw:
 - Company
