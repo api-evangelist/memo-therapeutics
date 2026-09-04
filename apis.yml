@@ -30,6 +30,20 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  generated: '2026-09-03'
+  method: derived
 image: https://memo-therapeutics.com/wp-content/uploads/2024/07/memo-therapeutics-ipsen-logo.webp
 url: https://raw.githubusercontent.com/api-evangelist/memo-therapeutics/refs/heads/main/apis.yml
 x-type: company
