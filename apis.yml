@@ -85,8 +85,8 @@ apis:
 - aid: memo-therapeutics:memo-therapeutics-posts-api
   name: Memo Therapeutics Posts API
   description: >-
-    News archive — press releases, Q&A interviews, event listings and scientific presentations
-    (36 published on 2026-08-25).
+    News archive — press releases, Q&A interviews, event listings and scientific presentations (36 published
+    on 2026-08-25).
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://memo-therapeutics.com/wp-json
   tags:
@@ -109,8 +109,8 @@ apis:
 - aid: memo-therapeutics:memo-therapeutics-pages-api
   name: Memo Therapeutics Pages API
   description: >-
-    Corporate pages — About us, BKV, Contact us, Latest News, Further Information, Expanded Access
-    Policy, and the privacy, cookie and terms documents (10 published on 2026-08-25).
+    Corporate pages — About us, BKV, Contact us, Latest News, Further Information, Expanded Access Policy,
+    and the privacy, cookie and terms documents (10 published on 2026-08-25).
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://memo-therapeutics.com/wp-json
   tags:
@@ -131,8 +131,8 @@ apis:
 - aid: memo-therapeutics:memo-therapeutics-media-api
   name: Memo Therapeutics Media API
   description: >-
-    Media library — corporate imagery, partner and investor logos and leadership portraits
-    (163 attachments on 2026-08-25).
+    Media library — corporate imagery, partner and investor logos and leadership portraits (163 attachments
+    on 2026-08-25).
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://memo-therapeutics.com/wp-json
   tags:
@@ -153,8 +153,8 @@ apis:
 - aid: memo-therapeutics:memo-therapeutics-taxonomy-api
   name: Memo Therapeutics Taxonomy API
   description: >-
-    Categories and tags. Eight categories are registered and populated; the post_tag taxonomy is
-    registered but empty.
+    Categories and tags. Eight categories are registered and populated; the post_tag taxonomy is registered
+    but empty.
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://memo-therapeutics.com/wp-json
   tags:
@@ -175,8 +175,8 @@ apis:
 - aid: memo-therapeutics:memo-therapeutics-comments-api
   name: Memo Therapeutics Comments API
   description: >-
-    Comment collection. Registered and anonymously reachable, but empty — no post on this deployment
-    carries comments.
+    Comment collection. Registered and anonymously reachable, but empty — no post on this deployment carries
+    comments.
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://memo-therapeutics.com/wp-json
   tags:
@@ -236,26 +236,6 @@ apis:
     url: conventions/memo-therapeutics-conventions.yml
   - type: DataModel
     url: data-model/memo-therapeutics-data-model.yml
-- aid: memo-therapeutics:memo-therapeutics-oembed-api
-  name: Memo Therapeutics oEmbed API
-  description: oEmbed 1.0 provider endpoint for memo-therapeutics.com URLs.
-  humanURL: https://developer.wordpress.org/rest-api/
-  baseURL: https://memo-therapeutics.com/wp-json
-  tags:
-  - oEmbed
-  tags_raw:
-  - oembed
-  properties:
-  - type: OpenAPI
-    url: openapi/memo-therapeutics-oembed-api-openapi.yml
-  - type: Authentication
-    url: authentication/memo-therapeutics-authentication.yml
-  - type: ErrorCatalog
-    url: errors/memo-therapeutics-problem-types.yml
-  - type: Conventions
-    url: conventions/memo-therapeutics-conventions.yml
-  - type: Conformance
-    url: conformance/memo-therapeutics-conformance.yml
 - aid: memo-therapeutics:memo-therapeutics-navigation-api
   name: Memo Therapeutics Navigation API
   description: Block-theme navigation menus exposed as a post type (1 published on 2026-08-25).
@@ -276,6 +256,24 @@ apis:
     url: conventions/memo-therapeutics-conventions.yml
   - type: DataModel
     url: data-model/memo-therapeutics-data-model.yml
+- aid: memo-therapeutics:memo-therapeutics-o-embed-api
+  name: Memo Therapeutics o Embed API
+  description: oEmbed 1.0 provider endpoint for memo-therapeutics.com URLs.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://memo-therapeutics.com/wp-json
+  tags:
+  - o Embed
+  properties:
+  - type: OpenAPI
+    url: openapi/memo-therapeutics-o-embed-api-openapi.yml
+  - type: Authentication
+    url: authentication/memo-therapeutics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/memo-therapeutics-problem-types.yml
+  - type: Conventions
+    url: conventions/memo-therapeutics-conventions.yml
+  - type: Conformance
+    url: conformance/memo-therapeutics-conformance.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
