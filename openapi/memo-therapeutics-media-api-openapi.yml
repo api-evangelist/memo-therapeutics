@@ -3,24 +3,23 @@ info:
   title: Memo Therapeutics Media API
   version: wp/v2
   summary: Anonymously readable WordPress REST content API behind memo-therapeutics.com.
-  description: The read-only content surface Memo Therapeutics exposes at https://memo-therapeutics.com/wp-json. Memo Therapeutics AG ("MTx") is a late-stage biotech in Schlieren / Zurich, Switzerland, translating human immune responses into antibody medicines for viral infection and cancer; its lead asset potravitug is a first-in-class monoclonal antibody against BK polyomavirus in kidney transplant recipients, and Ipsen completed its acquisition of the company on 22 July 2026. The company runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress route index the site itself publishes; it is not a contract Memo Therapeutics authored or endorses.
+  description: The read-only content surface Memo Therapeutics exposes at https://memo-therapeutics.com/wp-json.
   contact:
     name: Memo Therapeutics AG
     url: https://memo-therapeutics.com/contact-us/
     email: info@memo-therapeutics.com
-  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index published at https://memo-therapeutics.com/wp-json/ (390 routes across 14 namespaces), and restricted to the operations that were verified to answer anonymously with a 200 on 2026-08-25. Every parameter below appears verbatim in that route index's `args` for the endpoint it is attached to, and every collection count quoted in a description was read from the `X-WP-Total` response header on that date. Memo Therapeutics publishes no OpenAPI, no developer portal and no API reference; `humanURL` in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Write operations and the authenticated surface (/wp/v2/users, /wp/v2/settings, /wp/v2/menus, /wp/v2/themes, /wp/v2/plugins, /wp/v2/block-types, the aioseo/v1, elementor*/v1, wordfence/v1, wp-site-health/v1 and wp-abilities/v1 namespaces) all returned 401 to an anonymous client and are deliberately
-    excluded. Nothing here was obtained with credentials.
+  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index published at https://memo-therapeutics.com/wp-json/ (390 routes across 14 namespaces), and restricted to the operations that were verified to answer anonymously with a 200 on 2026-08-25. Every parameter below appears verbatim in that route index's `args` for the endpoint it is attached to, and every collection count quoted in a description was read from the `X-WP-Total` response header on that date. Memo Therapeutics publishes no OpenAPI, no developer portal and no API reference; `humanURL` in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Write operations and the authenticated surface (/wp/v2/users, /wp/v2/settings, /wp/v2/menus, /wp/v2/themes, /wp/v2/plugins, /wp/v2/block-types, the aioseo/v1, elementor*/v1, wordfence/v1, wp-site-health/v1 and wp-abilities/v1 namespaces) all returned 401 to an anonymous client and are deliberately excluded. Nothing here was obtained with credentials.
 servers:
 - url: https://memo-therapeutics.com/wp-json
   description: Production content API
 tags:
-- name: media
+- name: Media
   description: Media library — corporate imagery, partner and investor logos, leadership portraits and document attachments (163 attachments on 2026-08-25).
 paths:
   /wp/v2/media:
     get:
       tags:
-      - media
+      - Media
       operationId: listMedia
       summary: List media attachments
       description: Lists media library attachments. 163 attachments on 2026-08-25, including the Memo Therapeutics / Ipsen lock-up logo added after the July 2026 acquisition.
@@ -232,7 +231,7 @@ paths:
   /wp/v2/media/{id}:
     get:
       tags:
-      - media
+      - Media
       operationId: getMedia
       summary: Get a media attachment
       description: Returns one attachment by numeric id.
@@ -265,6 +264,19 @@ paths:
         '404':
           $ref: '#/components/responses/NoRoute'
 components:
+  responses:
+    InvalidParameter:
+      description: Invalid parameter (code rest_invalid_param).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
+    NoRoute:
+      description: No route matched (code rest_no_route), or the object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RestError'
   schemas:
     RestError:
       type: object
@@ -285,28 +297,3 @@ components:
       required:
       - code
       - message
-    RenderedText:
-      type: object
-      properties:
-        rendered:
-          type: string
-      description: WordPress renders text fields into a { rendered } wrapper.
-  responses:
-    InvalidParameter:
-      description: Invalid parameter (code rest_invalid_param).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RestError'
-    NoRoute:
-      description: No route matched (code rest_no_route), or the object does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RestError'
-    Forbidden:
-      description: Anonymous client is not permitted (code rest_forbidden / rest_cannot_view). Observed 401, not 403.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RestError'
