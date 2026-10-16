@@ -2,29 +2,23 @@
 kin_checks:
   slug: memo-therapeutics
   schema_version: 0.23.0
-  scored_at: '2026-10-03'
-  run_ts: 2026-10-03T024842
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.23.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 153
-    earned: 18
-    partial: 6
-    missed: 87
-    na: 42
+    earned: 20
+    partial: 7
+    missed: 81
+    na: 45
   checks:
   - id: leadership_present
-    status: missed
-  - id: multiple_apis
-    status: missed
-  - id: human_url_per_api
     status: missed
   - id: well_known_published
     status: missed
   - id: apis_json_self_hosted
-    status: missed
-  - id: contract_present
     status: missed
   - id: servers_resolvable
     status: missed
@@ -77,6 +71,8 @@ kin_checks:
   - id: examples_published
     status: missed
   - id: portal_present
+    status: missed
+  - id: documentation_present
     status: missed
   - id: api_reference_present
     status: missed
@@ -158,15 +154,9 @@ kin_checks:
     status: missed
   - id: upsert_declared_conflict
     status: missed
-  - id: spec_presence
-    status: missed
   - id: agentic_access
     status: missed
-  - id: reversibility_documented
-    status: missed
   - id: mcp_server
-    status: missed
-  - id: idempotency
     status: missed
   - id: openapi_examples
     status: missed
@@ -177,8 +167,6 @@ kin_checks:
   - id: consent_identity
     status: missed
   - id: agent_card
-    status: missed
-  - id: dry_run_mode
     status: missed
   - id: delegated_identity
     status: missed
@@ -192,6 +180,9 @@ kin_checks:
     status: partial
     earned: 0.5
     detail: pointer liveness 0.5
+  - id: contract_present
+    status: partial
+    earned: 18.0
   - id: agent_skill_present
     status: partial
     earned: 0.75
@@ -217,12 +208,14 @@ kin_checks:
   - components_reuse
   - contract_self_operated
   - credentials_not_in_query
+  - dry_run_mode
   - error_responses_documented
   - fhir_capability_statement
   - fhir_resource_coverage
   - graphql_descriptions
   - graphql_sdl_present
   - graphql_type_depth
+  - idempotency
   - inbound_contract_published
   - info_complete
   - mcp_endpoint_discoverable
@@ -248,6 +241,7 @@ kin_checks:
   - reg_training_data_summary
   - reg_write_surface
   - response_coverage
+  - reversibility_documented
   - security_applied
   - security_schemes
   - security_schemes_defined

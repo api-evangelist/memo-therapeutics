@@ -1,21 +1,19 @@
-# Kin Score artifact — memo-therapeutics — 2026-09-10T204815
+# Kin Score artifact — memo-therapeutics — 2026-10-11T110117
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: memo-therapeutics
-  schema_version: 0.20.0
-  scored_at: '2026-09-10'
-  run_ts: 2026-09-10T204815
-  composite: 32.3
-  band: thin
+  schema_version: 0.23.0
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
+  composite: 24.2
+  band: emerging
   facets:
-    discoverability: 81.5
-    contract_quality: 52.4
-    governance: 18.2
+    discoverability: 79.5
+    contract_quality: 24.0
+    contract_governance: 18.2
     operational_transparency: 0.0
     developer_ergonomics: 13.7
-    commercial_clarity: 21.1
-    contract_governance: 18.2
     access_clarity: 21.1
   agent_readiness:
     score: 25.2
@@ -44,14 +42,9 @@ kin_score:
     applies: true
     regime: Health
     regime_id: health
-    score: 31.3
+    score: 19.5
     matched_via: tags
   provenance:
     mcp: derived
     skills: derived
     conformance: first-party
-    contracts:
-      total: 9
-      derived: 0
-      coverage: 0.0
-      callable: 100.0
