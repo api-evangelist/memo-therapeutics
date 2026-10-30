@@ -64,17 +64,104 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Memo Therapeutics AG ("MTx"), an Ipsen company, is a late-stage biotechnology company in Schlieren /
-Zurich, Switzerland, developing best-in-class therapeutic antibodies for viral infections and cancer on
-its DROPZYLLA single-cell antibody-discovery platform. Its lead program, potravitug, is a first-in-class
-monoclonal antibody against BK polyomavirus reactivation in kidney transplant recipients. Ipsen completed
-its acquisition of the company on 22 July 2026.
+Memo Therapeutics AG ("MTx"), an Ipsen company, is a late-stage biotechnology company headquartered at Wagistrasse 27 in Schlieren / Zurich, Switzerland, with a US office as Memo Therapeutics US, Inc. in Wilson, North Carolina. It develops best-in-class therapeutic antibodies to transform the lives of patients with viral infections and cancer, built on DROPZYLLA, a microfluidic single-cell platform that makes a recombinant in vitro copy of an individual donor's B-cell antibody repertoire, banks it as a library, and screens it functionally at high throughput. Its lead program, potravitug, is a first-in-class monoclonal antibody against BK polyomavirus (BKPyV) reactivation in kidney transplant recipients; the Phase II SAFE KIDNEY II trial reported biopsy-proven resolution of BKPyV-associated nephropathy with sustained viral-load reduction to week 38, and the asset holds EU orphan designation. In February 2026 the company entered a collaboration and option agreement with CSL for its recombinant polyclonal IgG technology carrying milestones of up to CHF 265 million, and it has run an oncology antibody-discovery collaboration with Ono Pharmaceutical since 2022 alongside nephrology collaborations with the University Hospital of Zurich and the University Hospital of Bern. Ipsen completed its acquisition of Memo Therapeutics AG on 22 July 2026, adding potravitug to Ipsen's rare-disease pipeline. Memo Therapeutics runs no developer program and publishes no product API, developer portal, SDK or API documentation. The only machine-readable surface reachable without credentials is the WordPress REST content API behind memo-therapeutics.com, catalogued here, together with an llms.txt the site's SEO plugin publishes.
 
-Memo Therapeutics runs no developer program and publishes no product API, developer portal, SDK or API
-documentation. The only machine-readable surface reachable without credentials is the WordPress REST
-content API behind memo-therapeutics.com — profiled here as nine derived OpenAPI documents — together
-with an llms.txt the site's SEO plugin publishes, captured verbatim.
+**Areas:** Company · Biotechnology · Pharmaceuticals · Antibody Therapeutics · Rare Disease · Nephrology · transplantation · virology · Oncology · Clinical Trials · Life Sciences · Switzerland
 
-- https://memo-therapeutics.com/
-- https://www.linkedin.com/company/memo-therapeutics-ag/
-- https://www.ipsen.com/
+## Memo Therapeutics on APIs.io
+
+Everything profiled for Memo Therapeutics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/memo-therapeutics/](https://apis.io/providers/memo-therapeutics/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Memo Therapeutics Website (WordPress REST)](https://apis.io/apis/memo-therapeutics/memo-therapeutics-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Memo Therapeutics website at memo-therapeutics.com: the route index of the site's content management system,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Memo Therapeutics Content Overlay](https://apis.io/overlays/memo-therapeutics/memo-therapeutics-content-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Memo Therapeutics Authentication](https://apis.io/security/memo-therapeutics/memo-therapeutics-authentication/)
+- [Memo Therapeutics Domain Security](https://apis.io/security/memo-therapeutics/memo-therapeutics-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Memo Therapeutics Plans Pricing](https://apis.io/plans/memo-therapeutics/memo-therapeutics-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Memo Therapeutics Rate Limits](https://apis.io/rate-limits/memo-therapeutics/memo-therapeutics-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://memo-therapeutics.com/)
+- [Terms of service](https://memo-therapeutics.com/terms-and-conditions/)
+- [Privacy policy](https://memo-therapeutics.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 18.7** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 65.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 23.2 |
+| Access clarity | 21.1 |
+
+**Agent readiness 8.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 19.5** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/memo-therapeutics/](https://apis.io/providers/memo-therapeutics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Memo Therapeutics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/memo-therapeutics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
